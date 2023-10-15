@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Admin\JenisOutletController;
 use App\Http\Controllers\Api\Admin\PetugasController;
 use App\Http\Controllers\Api\Admin\SalesController;
 use App\Http\Controllers\Api\Admin\WarehouseController;
+use App\Http\Controllers\API\Admin\DetailProdukController;
 use App\Http\Controllers\API\Admin\ListProdukController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,9 @@ Route::prefix('admin')->group(function () {
         Route::apiResource('sales', SalesController::class);
         Route::apiResource('warehouse', WarehouseController::class);
         Route::apiResource('petugas', PetugasController::class);
-        Route::apiResource('listproduk', ListProdukController::class);
+
+        //mobile
+        Route::get('detailprodukbyoutlet/{id}',[DetailProdukController::class, 'getProdukByOutlet']);
+        Route::get('listproduk',[ListProdukController::class, 'listproduk']);
     });
 });
