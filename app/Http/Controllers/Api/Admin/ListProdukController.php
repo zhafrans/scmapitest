@@ -13,18 +13,15 @@ use App\Models\JenisBarang;
 
 class ListProdukController extends Controller
 {
-    public function listProduk(){
+    public function listProduk($jenis_barang_id){
 
-        /*$product = Barang::
-        leftJoin('harga_barang', 'harga_barang.id_barang', '=', 'barang.id')
-        ->select('barang.id', 'barang.nama', 'harga_barang.harga')       
-        ->orderByDesc('harga_barang.tanggal')
-        ->get();*/
         $product = Barang::leftJoin('harga_barang', function($join) {
             $join->on('harga_barang.id_barang', '=', 'barang.id')
                  ->on('harga_barang.tanggal', '=', DB::raw('(SELECT MAX(tanggal) FROM harga_barang WHERE id_barang = barang.id)'));
         })
+        ->leftJoin('jenis_barang', 'jenis_barang.id', '=', 'barang.id_jenis')
         ->select('barang.id', 'barang.nama', 'harga_barang.harga')
+        ->where('jenis_barang.id', $jenis_barang_id)
         ->orderBy('barang.id', 'asc')
         ->get();
 

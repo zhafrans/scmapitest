@@ -50,6 +50,6 @@ Route::prefix('admin')->group(function () {
 
         //mobile
         Route::get('detailprodukbyoutlet/{id}',[DetailProdukController::class, 'getProdukByOutlet']);
-        Route::get('listproduk',[ListProdukController::class, 'listproduk']);
+        Route::get('listproduk/{id}',[ListProdukController::class, 'listproduk']);
     });
 });
